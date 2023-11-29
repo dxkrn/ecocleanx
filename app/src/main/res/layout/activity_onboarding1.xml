@@ -4,28 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
-    tools:context=".ui.Onboarding1Activity">
+    tools:context=".ui.Onboarding1Activity"
+    >
 
     <TextView
         android:id="@+id/btn_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
         android:text="SKIP"
-        android:textColor="@color/primary"
-        android:textSize="16sp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/primaryDark"
+        />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView6"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ill_onboarding_1" />
+        app:srcCompat="@drawable/ill_onboarding_1" />
+
+    <TextView
+        android:id="@+id/btn_selanjutnya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Selanjutnya"
+        android:textColor="@color/primaryDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_sebelumnya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Sebelumnya"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -33,10 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Cari tong sampah terdekat dengan mudah dan efisien"
+        android:paddingHorizontal="32dp"
+        android:text="Hai, Sahabat ! Salam kenal, namaku EcoClean:)"
+
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,44 +73,22 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="88dp"
         android:fontFamily="@font/inter"
-        android:text="Bingung cari tempat sampah? jangan buang sembarangan. Cari bersamaku Pasti, cepat, dan efisien dalam mencari tong sampah."
+        android:paddingHorizontal="32dp"
+        android:text="Di sini aku akan membantumu untuk mengatasi permasalahan sampah. Mari bersama membuat bumi ini sehat kembali. "
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/btn_sebelumnya"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/inter"-->
-<!--        android:text="Sebelumnya"-->
-<!--        android:textColor="@color/primary"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/imageView3" />-->
-
-    <TextView
-        android:id="@+id/btn_selanjutnya"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_bold"
-        android:text="Selanjutnya"
-        android:textColor="@color/primary"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="80dp"
+        android:id="@+id/imageView8"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_selanjutnya"
+        app:layout_constraintStart_toEndOf="@+id/btn_sebelumnya"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:srcCompat="@drawable/indicator_onboarding_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
