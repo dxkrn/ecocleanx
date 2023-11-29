@@ -18,5 +18,10 @@ class SigninActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnMasuk.setOnClickListener{
+            startActivity(Intent(this,BerandaActivity::class.java))
+            finish()
+        }
+
     }
 }
