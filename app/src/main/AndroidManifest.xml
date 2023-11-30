@@ -13,6 +13,12 @@
         android:theme="@style/Theme.EcoCleanX"
         tools:targetApi="31">
         <activity
+            android:name=".ui.LaporSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LaporInputActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.BerandaActivity"
             android:exported="false" />
         <activity

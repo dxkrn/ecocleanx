@@ -18,5 +18,10 @@ class BerandaActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.bannerLapor.setOnClickListener{
+            startActivity(Intent(this,LaporInputActivity::class.java))
+            finish()
+        }
+
     }
 }
