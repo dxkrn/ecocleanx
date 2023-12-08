@@ -23,5 +23,10 @@ class BerandaActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
+        }
+
     }
 }
