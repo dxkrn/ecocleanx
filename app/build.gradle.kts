@@ -61,4 +61,10 @@ dependencies {
     //auth
     implementation("com.google.firebase:firebase-auth")
 
+    //firestore
+    implementation("com.google.firebase:firebase-firestore")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.8.5")
+
 }
