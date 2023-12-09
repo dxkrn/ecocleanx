@@ -13,15 +13,30 @@ import android.os.Bundle
 import android.widget.Toast
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.coolyeah.ecocleanx.R
 import com.coolyeah.ecocleanx.databinding.ActivityLaporInputBinding
+import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class LaporInputActivity : AppCompatActivity() {
@@ -34,6 +49,12 @@ class LaporInputActivity : AppCompatActivity() {
     //CAMERA
     val REQUEST_IMAGE_CAPTURE = 1
 
+    //FIREBASE STORAGE
+    private  lateinit var storage: FirebaseStorage
+
+    //FIREBASE FIRESTORE
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLaporInputBinding.inflate(layoutInflater)
@@ -41,6 +62,12 @@ class LaporInputActivity : AppCompatActivity() {
 
         //GPS
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        //Firebase Storage
+        storage = Firebase.storage
+
+        //Firebase Firestore
+        db = Firebase.firestore
 
 
         //Buttons
@@ -50,8 +77,9 @@ class LaporInputActivity : AppCompatActivity() {
         }
 
         binding.btnKirim.setOnClickListener {
-            startActivity(Intent(this,LaporSuccessActivity::class.java))
-            finish()
+            sendLaporan()
+//            startActivity(Intent(this,LaporSuccessActivity::class.java))
+//            finish()
         }
 
         binding.btnAddPhoto.setOnClickListener {
@@ -160,4 +188,89 @@ class LaporInputActivity : AppCompatActivity() {
             binding.btnAddPhoto.setImageBitmap(imageBitmap)
         }
     }
+
+    //UPLOAD IMAGE
+    fun sendLaporan() {
+        //LAPORAN DATA
+        var lokasi = binding.etLokasi.text.toString()
+        var keterangan = binding.etKeterangan.text.toString()
+        var alamat = binding.textAddress.text.toString()
+        var latLong = binding.textLatlong.text.toString()
+
+        //GET CURRENT DATE
+        val currDate = Date()
+        val formatter = SimpleDateFormat("yyyyMMddHHmmss")
+        val formattedDateTime = formatter.format(currDate)
+
+        //GET USER EMAIL
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email
+
+        //GENERATE LAPORAN DOC ID
+        val laporanID = userEmail+formattedDateTime
+
+        // Create a storage reference from our app
+        val storageRef = storage.reference
+
+        // Create a reference to 'laporan/..'
+        val laporanImagesRef = storageRef.child("laporan/${userEmail}-${formattedDateTime}.jpg")
+
+        // Get the data from an ImageView as bytes
+        val imageView: ImageView = findViewById(R.id.btn_add_photo)
+        imageView.isDrawingCacheEnabled = true
+        imageView.buildDrawingCache()
+
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        val uploadTask = laporanImagesRef.putBytes(data)
+
+        uploadTask.addOnFailureListener {
+            Toast.makeText(
+                baseContext,
+                "Kirim Laporan Gagal!😓",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }.addOnSuccessListener { taskSnapshot ->
+            laporanImagesRef.downloadUrl.addOnSuccessListener { uri ->
+                val imgUrl = uri.toString()
+//                Log.d("URL IMG", imgUrl)
+
+                val laporanData = hashMapOf(
+                    "email" to userEmail,
+                    "lokasi" to lokasi,
+                    "keterangan" to keterangan,
+                    "alamat" to alamat,
+                    "latlong" to latLong,
+                    "img" to imgUrl,
+                    "date" to currDate
+                )
+
+                //add user data to firestore
+                db.collection("laporans").document(laporanID)
+                    .set(laporanData)
+                    .addOnSuccessListener { documentReference ->
+                        Toast.makeText(
+                            baseContext,
+                            "Kirim Laporan Berhasil! 🤗",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+
+                        startActivity(Intent(this,LaporSuccessActivity::class.java))
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(
+                            baseContext,
+                            "Sign Up gagal!🥵",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+
+
+            }
+        }
+    }
+
 }

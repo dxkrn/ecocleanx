@@ -65,6 +65,9 @@ dependencies {
     //firestore
     implementation("com.google.firebase:firebase-firestore")
 
+    //firebase storage
+    implementation("com.google.firebase:firebase-storage")
+
     //gson
     implementation ("com.google.code.gson:gson:2.8.5")
 
