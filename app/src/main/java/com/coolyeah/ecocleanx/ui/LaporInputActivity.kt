@@ -2,6 +2,7 @@ package com.coolyeah.ecocleanx.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -11,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import android.content.Context
+import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
+import android.provider.MediaStore
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,6 +30,9 @@ class LaporInputActivity : AppCompatActivity() {
     //GPS
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
+
+    //CAMERA
+    val REQUEST_IMAGE_CAPTURE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +54,13 @@ class LaporInputActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnAddPhoto.setOnClickListener {
+            dispatchTakePictureIntent()
+        }
+
         //get location on create
         getLocation()
+
     }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -130,4 +141,23 @@ class LaporInputActivity : AppCompatActivity() {
         }
     }
 
+
+    //CAPTURE IMAGE FROM CAMERA
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.btnAddPhoto.setImageBitmap(imageBitmap)
+        }
+    }
 }

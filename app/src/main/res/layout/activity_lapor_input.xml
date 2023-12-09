@@ -155,8 +155,9 @@
                 <ImageView
                     android:id="@+id/btn_add_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/add_photo"
+                    android:adjustViewBounds="true"
                     />
                 <android.widget.Button
                     android:id="@+id/btn_kirim"
