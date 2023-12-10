@@ -5,13 +5,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.coolyeah.ecocleanx.R
 import com.coolyeah.ecocleanx.databinding.ActivityBerandaBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+
 
 class BerandaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBerandaBinding
@@ -22,15 +26,20 @@ class BerandaActivity : AppCompatActivity() {
         binding = ActivityBerandaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnNotif.setOnClickListener{
-            startActivity(Intent(this,NotifikasiActivity::class.java))
-            finish()
-        }
+//        binding.btnNotif.setOnClickListener{
+//            startActivity(Intent(this,NotifikasiActivity::class.java))
+//            finish()
+//        }
+//
+//        binding.bannerLapor.setOnClickListener{
+//            startActivity(Intent(this,LaporInputActivity::class.java))
+//            finish()
+//        }
 
-        binding.bannerLapor.setOnClickListener{
-            startActivity(Intent(this,LaporInputActivity::class.java))
-            finish()
-        }
+        val bottomNavigationView =  findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController= findNavController(R.id.fragment)
+
+        bottomNavigationView.setupWithNavController(navController)
 
         binding.btnProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))

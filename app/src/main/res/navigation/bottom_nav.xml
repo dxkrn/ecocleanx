@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/berandaFragment">
+
+    <fragment
+        android:id="@+id/berandaFragment"
+        android:name="com.coolyeah.ecocleanx.BerandaFragment"
+        android:label="fragment_beranda"
+        tools:layout="@layout/fragment_beranda" >
+        <action
+            android:id="@+id/action_berandaFragment_to_pelaporanFragment2"
+            app:destination="@id/pelaporanFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_edukasiFragment"
+            app:destination="@id/edukasiFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pelaporanFragment"
+        android:name="com.coolyeah.ecocleanx.PelaporanFragment"
+        android:label="fragment_pelaporan"
+        tools:layout="@layout/fragment_pelaporan" >
+        <action
+            android:id="@+id/action_pelaporanFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+        <action
+            android:id="@+id/action_pelaporanFragment_to_berandaFragment2"
+            app:destination="@id/berandaFragment" />
+        <action
+            android:id="@+id/action_pelaporanFragment_to_edukasiFragment"
+            app:destination="@id/edukasiFragment" />
+        <action
+            android:id="@+id/action_pelaporanFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/edukasiFragment"
+        android:name="com.coolyeah.ecocleanx.EdukasiFragment"
+        android:label="fragment_edukasi"
+        tools:layout="@layout/fragment_edukasi" >
+        <action
+            android:id="@+id/action_edukasiFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+        <action
+            android:id="@+id/action_edukasiFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.coolyeah.ecocleanx.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_edukasiFragment"
+            app:destination="@id/edukasiFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_pelaporanFragment"
+            app:destination="@id/pelaporanFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+    </fragment>
+</navigation>
