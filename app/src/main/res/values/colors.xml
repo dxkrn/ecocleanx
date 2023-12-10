@@ -8,4 +8,6 @@
     <color name="text">#324757</color>
     <color name="grey">#324757</color>
     <color name="softGrey">#F5F7FA</color>
+    <color name="nav_default">#BCBDC4</color>
+    <color name="danger">#95424E</color>
 </resources>
