@@ -44,12 +44,57 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:src="@drawable/map"
-                android:layout_marginTop="4dp"
-                />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:src="@drawable/map"
+                    android:layout_marginTop="4dp"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/text_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/inter_medium"
+                        android:text=""
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.478"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textAlignment="center"
+                        android:background="@android:color/transparent"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_latlong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:text=""
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/text_address"
+                        app:layout_constraintStart_toStartOf="@+id/text_address"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textAlignment="center"
+                        android:background="@android:color/transparent"
+                        android:paddingHorizontal="32dp"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +124,7 @@
                     android:text="Lokasi"
                     />
                 <EditText
+                    android:id="@+id/et_lokasi"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
@@ -93,13 +139,14 @@
                     android:layout_marginTop="16dp"
                     />
                 <EditText
+                    android:id="@+id/et_keterangan"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="4dp"
                     android:paddingHorizontal="8dp"
                     android:background="@drawable/bg_edit_text"
                     android:hint="Masukkan keterangan..."
-                    android:maxLines="3"
+                    android:maxLines="4"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -110,8 +157,9 @@
                 <ImageView
                     android:id="@+id/btn_add_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/add_photo"
+                    android:adjustViewBounds="true"
                     />
                 <android.widget.Button
                     android:id="@+id/btn_kirim"
