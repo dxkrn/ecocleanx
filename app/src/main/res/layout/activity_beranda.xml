@@ -6,241 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.BerandaActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scrollbars="none"
-        >
 
-        <LinearLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="32dp"
-            android:layout_marginTop="32dp"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu" />
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/logo_ecoclean"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="Joko Susanto"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                    app:layout_constraintStart_toEndOf="@+id/imageView7"
-                    app:layout_constraintTop_toTopOf="@+id/imageView7" />
+        <fragment
+            android:id="@+id/fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/bottom_nav"
+            app:defaultNavHost="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottomNavigationView" />
 
-                <ImageView
-                    android:id="@+id/btn_notif"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_notif"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ingin setor sampahmu?"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="20sp"
-                />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:src="@drawable/banner_setor"
-                android:cropToPadding="true"
-                android:layout_marginTop="8dp"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="Rekomendasi"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="Lihat Semua"
-                    android:textColor="@color/primaryDark"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layoutDirection="ltr"
-                >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="280dp"
-                        android:layout_height="120dp"
-                        android:layout_marginRight="24dp"
-                        >
-
-                        <TextView
-                            android:id="@+id/textView18"
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:text="Apakah air tanah tercemar sampah?"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:src="@drawable/banner_artikel_1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <LinearLayout
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/ic_calendar" />
-
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="21 - 09 - 2022"
-                                />
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="280dp"
-                        android:layout_height="120dp"
-                        android:layout_marginRight="24dp"
-                        >
-
-                        <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:text="Apa kabar sampah di laut?"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:src="@drawable/banner_artikel_2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <LinearLayout
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/ic_calendar" />
-
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="21 - 09 - 2022"
-                                />
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lihat tumpukan sampah?"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="18sp"
-                />
-
-            <ImageView
-                android:id="@+id/banner_lapor"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:src="@drawable/banner_lapor"
-                android:cropToPadding="true"
-                android:layout_marginTop="8dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Seberapa jauh perjalananmu?"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="18sp"
-                />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:src="@drawable/banner_leaderboard"
-                android:cropToPadding="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="100dp"
-                />
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
