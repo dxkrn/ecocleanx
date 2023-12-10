@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.coolyeah.ecocleanx.R
@@ -26,13 +27,48 @@ class BerandaActivity : AppCompatActivity() {
 
         binding = ActivityBerandaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        nav()
+
+    }
 
 
+    private fun nav(){
         val bottomNavigationView =  findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.btn_nav_icon_color)
         val navController= findNavController(R.id.fragment)
 
-        bottomNavigationView.setupWithNavController(navController)
-
+        bottomNavigationView.itemIconTintList = colorStateList
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.berandaFragment -> {
+                    // Handle Home item click
+                    bottomNavigationView.setupWithNavController(navController)
+                    val selectedColor = ContextCompat.getColor(this, R.color.primary)
+                    // Change icon color if needed
+                    item.icon?.setTint(selectedColor)
+                }
+                R.id.edukasiFragment -> {
+                    bottomNavigationView.setupWithNavController(navController)
+                    val selectedColor = ContextCompat.getColor(this, R.color.primary)
+                    // Change icon color if needed
+                    item.icon?.setTint(selectedColor)
+                }
+                R.id.pelaporanFragment -> {
+                    bottomNavigationView.setupWithNavController(navController)
+                    val selectedColor = ContextCompat.getColor(this, R.color.primary)
+                    // Change icon color if needed
+                    item.icon?.setTint(selectedColor)
+                }
+                R.id.profileFragment -> {
+                    bottomNavigationView.setupWithNavController(navController)
+                    val selectedColor = ContextCompat.getColor(this, R.color.primary)
+                    // Change icon color if needed
+                    item.icon?.setTint(selectedColor)
+                }
+            }
+            true // Return true to indicate the item selection is handled
+        }
     }
 
 //    fun getUserData(): Map<String, String> {

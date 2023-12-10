@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Beranda"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_beranda"
         android:iconTint="@color/primaryDisabled"
         android:iconTintMode="@color/primary"
         />

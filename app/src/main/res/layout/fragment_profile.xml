@@ -4,12 +4,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btn_signout"
-        android:layout_width="wrap_content"
+  
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Out" />
+        android:orientation="vertical"
+        android:paddingHorizontal="48dp">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_ecoclean"
+            android:layout_marginTop="50dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_extrabold"
+            android:text="Sesuaikan profile"
+            android:textAlignment="textStart"
+            android:textSize="24sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Lengkap" />
+
+        <EditText
+            android:id="@+id/et_nama"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edit_text"
+            android:hint="Joko susanto"
+            android:paddingHorizontal="8dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Telp" />
+
+        <EditText
+            android:id="@+id/et_telp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edit_text"
+            android:hint="Nomer telp"
+            android:paddingHorizontal="8dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jenis kelamin" />
+
+        <android.widget.RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <android.widget.RadioButton
+                android:id="@+id/L"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Laki-laki"
+                android:textColorHighlight="@color/primary"
+                android:textColorLink="@color/primary"
+                android:buttonTint="@color/primary"
+                tools:text="Laki-laki"
+                android:layout_marginRight="20dp"/>
+
+            <android.widget.RadioButton
+                android:id="@+id/P"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perempuan"
+                android:textColorHighlight="@color/primary"
+                android:textColorLink="@color/primary"
+                android:buttonTint="@color/primary"
+                tools:text="Perempuan" />
+
+        </android.widget.RadioGroup>
+
+
+        <android.widget.Button
+            android:id="@+id/btn_perbarui"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button_fill"
+            android:text="Perbarui profile"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/btn_keluar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button_danger"
+            android:text="Keluar"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </FrameLayout>
