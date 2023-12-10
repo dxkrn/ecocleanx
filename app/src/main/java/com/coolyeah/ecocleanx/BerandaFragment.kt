@@ -71,7 +71,6 @@ class BerandaFragment : Fragment() {
         binding.textName.text =  userData["name"]
 
         var artikelData = getArtikelData()
-        binding.textArtikel.text = artikelData.toString()
 
 
 

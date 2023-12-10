@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:text="Jenis kelamin" />
 
-        <android.widget.RadioGroup
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -75,24 +75,26 @@
                 android:id="@+id/L"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:buttonTint="@color/primary"
                 android:text="Laki-laki"
                 android:textColorHighlight="@color/primary"
                 android:textColorLink="@color/primary"
-                android:buttonTint="@color/primary"
-                tools:text="Laki-laki"
-                android:layout_marginRight="20dp"/>
+                tools:ignore="TouchTargetSizeCheck"
+                tools:text="Laki-laki" />
 
             <android.widget.RadioButton
                 android:id="@+id/P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/primary"
                 android:text="Perempuan"
                 android:textColorHighlight="@color/primary"
                 android:textColorLink="@color/primary"
-                android:buttonTint="@color/primary"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:text="Perempuan" />
 
-        </android.widget.RadioGroup>
+        </RadioGroup>
 
 
         <android.widget.Button
