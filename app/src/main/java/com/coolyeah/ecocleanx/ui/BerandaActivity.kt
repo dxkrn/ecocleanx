@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.coolyeah.ecocleanx.R
 import com.coolyeah.ecocleanx.databinding.ActivityBerandaBinding
+import com.coolyeah.ecocleanx.databinding.FragmentBerandaBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -26,40 +27,22 @@ class BerandaActivity : AppCompatActivity() {
         binding = ActivityBerandaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.btnNotif.setOnClickListener{
-//            startActivity(Intent(this,NotifikasiActivity::class.java))
-//            finish()
-//        }
-//
-//        binding.bannerLapor.setOnClickListener{
-//            startActivity(Intent(this,LaporInputActivity::class.java))
-//            finish()
-//        }
 
         val bottomNavigationView =  findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController= findNavController(R.id.fragment)
 
         bottomNavigationView.setupWithNavController(navController)
 
-        binding.btnProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-            finish()
-        }
-
-
-        var userData = getUserData()
-
-        binding.btnProfile.setText(userData["name"])
     }
 
-    private fun getUserData(): Map<String, String> {
-        val sharedPreferences: SharedPreferences =
-            getSharedPreferences("localData", Context.MODE_PRIVATE)
-
-        val gson = Gson()
-        val json = sharedPreferences.getString("userData", "")
-
-        val type = object : TypeToken<Map<String, String>>() {}.type
-        return gson.fromJson(json, type) ?: emptyMap()
-    }
+//    fun getUserData(): Map<String, String> {
+//        val sharedPreferences: SharedPreferences =
+//            getSharedPreferences("localData", Context.MODE_PRIVATE)
+//
+//        val gson = Gson()
+//        val json = sharedPreferences.getString("userData", "")
+//
+//        val type = object : TypeToken<Map<String, String>>() {}.type
+//        return gson.fromJson(json, type) ?: emptyMap()
+//    }
 }

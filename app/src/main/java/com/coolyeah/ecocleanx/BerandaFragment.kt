@@ -1,10 +1,20 @@
 package com.coolyeah.ecocleanx
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.coolyeah.ecocleanx.databinding.FragmentBerandaBinding
+import com.coolyeah.ecocleanx.ui.BerandaActivity
+import com.coolyeah.ecocleanx.ui.LaporInputActivity
+import com.coolyeah.ecocleanx.ui.NotifikasiActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,23 +39,33 @@ class BerandaFragment : Fragment() {
         }
     }
 
+    private lateinit var binding: FragmentBerandaBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_beranda, container, false)
+        binding = FragmentBerandaBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        //BUTTONS
+        binding.btnNotif.setOnClickListener {
+            val intent = Intent(activity, NotifikasiActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.bannerLapor.setOnClickListener{
+            val intent = Intent(activity, LaporInputActivity::class.java)
+            startActivity(intent)
+        }
+
+        //SET USERNAME ON BERANDA
+        var userData = getUserData()
+        binding.textName.text =  userData["name"]
+
+        return  view
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BerandaFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
@@ -56,4 +76,17 @@ class BerandaFragment : Fragment() {
                 }
             }
     }
+
+
+    fun getUserData(): Map<String, String> {
+        val sharedPreferences: SharedPreferences =
+            requireActivity().getSharedPreferences("localData", Context.MODE_PRIVATE)
+
+        val gson = Gson()
+        val json = sharedPreferences.getString("userData", "")
+
+        val type = object : TypeToken<Map<String, String>>() {}.type
+        return gson.fromJson(json, type) ?: emptyMap()
+    }
+
 }
