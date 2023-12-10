@@ -49,6 +49,8 @@ class SigninActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    getArtikelData()
+
                     val docRef = db.collection("users").document(email)
                     docRef.get()
                         .addOnSuccessListener { document ->
@@ -113,6 +115,38 @@ class SigninActivity : AppCompatActivity() {
         return gson.fromJson(json, type) ?: emptyMap()
     }
 
+    fun getArtikelData() {
+        val artikelData =  mutableListOf<Map<String, Any>>()
+
+        val docRef = db.collection("materials")
+        docRef.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+
+
+                    artikelData.add(document.data)
+
+                }
+                //convert to string using gson
+                val gson = Gson()
+                val jsonData = gson.toJson(artikelData)
+
+                //save to local
+                saveArtikelData(jsonData)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("ARTIKEL", exception.toString() )
+            }
+    }
+
+    private fun saveArtikelData(data: String) {
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("localData", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        editor.putString("artikelData", data)
+        editor.apply()
+    }
 
 
 

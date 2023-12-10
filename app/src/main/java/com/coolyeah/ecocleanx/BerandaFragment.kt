@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.coolyeah.ecocleanx.adapter.ArtikelAdapter
 import com.coolyeah.ecocleanx.databinding.FragmentBerandaBinding
-import com.coolyeah.ecocleanx.ui.BerandaActivity
+import com.coolyeah.ecocleanx.model.ArtikelModel
 import com.coolyeah.ecocleanx.ui.LaporInputActivity
 import com.coolyeah.ecocleanx.ui.NotifikasiActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -39,7 +41,13 @@ class BerandaFragment : Fragment() {
         }
     }
 
+    //BINDING
     private lateinit var binding: FragmentBerandaBinding
+
+    //RECYCLERVIEW
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var dataList: ArrayList<ArtikelModel>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,6 +69,25 @@ class BerandaFragment : Fragment() {
         //SET USERNAME ON BERANDA
         var userData = getUserData()
         binding.textName.text =  userData["name"]
+
+        var artikelData = getArtikelData()
+        binding.textArtikel.text = artikelData.toString()
+
+
+
+        //RECYCLERVIEW ARTIKEL
+        recyclerView = binding.rvArtikelRekomendasi
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+
+        dataList = arrayListOf<ArtikelModel>()
+
+        for (artikel in artikelData) {
+            val artikelInstance = ArtikelModel.fromMap(artikel)
+            dataList.add(artikelInstance)
+        }
+
+        recyclerView.adapter = ArtikelAdapter(context, dataList)
 
         return  view
     }
@@ -88,5 +115,20 @@ class BerandaFragment : Fragment() {
         val type = object : TypeToken<Map<String, String>>() {}.type
         return gson.fromJson(json, type) ?: emptyMap()
     }
+
+    fun getArtikelData(): List<Map<String, Any>> {
+        val sharedPreferences: SharedPreferences =
+            requireActivity().getSharedPreferences("localData", Context.MODE_PRIVATE)
+
+        val gson = Gson()
+        val json = sharedPreferences.getString("artikelData", "")
+
+        val type = object : TypeToken<List<Map<String, Any>>>() {}.type
+
+        return gson.fromJson(json, type) ?: emptyList<Map<String, Any>>()
+    }
+
+
+
 
 }
