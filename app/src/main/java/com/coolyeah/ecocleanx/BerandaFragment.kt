@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coolyeah.ecocleanx.adapter.ArtikelAdapter
 import com.coolyeah.ecocleanx.databinding.FragmentBerandaBinding
 import com.coolyeah.ecocleanx.model.ArtikelModel
+import com.coolyeah.ecocleanx.ui.ArtikelActivity
 import com.coolyeah.ecocleanx.ui.LaporInputActivity
 import com.coolyeah.ecocleanx.ui.NotifikasiActivity
 import com.google.gson.Gson
@@ -72,8 +73,6 @@ class BerandaFragment : Fragment() {
 
         var artikelData = getArtikelData()
 
-
-
         //RECYCLERVIEW ARTIKEL
         recyclerView = binding.rvArtikelRekomendasi
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -86,7 +85,12 @@ class BerandaFragment : Fragment() {
             dataList.add(artikelInstance)
         }
 
-        recyclerView.adapter = ArtikelAdapter(context, dataList)
+        recyclerView.adapter = ArtikelAdapter(context, dataList) { selectedItem ->
+            val intent = Intent(activity, ArtikelActivity::class.java)
+            intent.putExtra("title", selectedItem.title)
+            intent.putExtra("content", selectedItem.content)
+            startActivity(intent)
+        }
 
         return  view
     }

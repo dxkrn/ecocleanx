@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.coolyeah.ecocleanx.R
 import com.coolyeah.ecocleanx.model.ArtikelModel
 
-class ArtikelAdapter(private val context: Context?, private val dataList:ArrayList<ArtikelModel>):RecyclerView.Adapter<ArtikelAdapter.ViewHolderClass>() {
+class ArtikelAdapter(private val context: Context?, private val dataList:ArrayList<ArtikelModel>, private val onItemClick: (ArtikelModel) -> Unit):RecyclerView.Adapter<ArtikelAdapter.ViewHolderClass>() {
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -33,6 +33,11 @@ class ArtikelAdapter(private val context: Context?, private val dataList:ArrayLi
         Glide.with(context!!)
             .load(currentItem.img)
             .into(holder.rvImage)
+
+        holder.itemView.setOnClickListener {
+            // Call the onItemClick function and pass the clicked item data
+            onItemClick(currentItem)
+        }
     }
 
     class ViewHolderClass(itemView: View): RecyclerView.ViewHolder(itemView){
