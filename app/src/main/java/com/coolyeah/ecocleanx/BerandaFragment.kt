@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coolyeah.ecocleanx.adapter.ArtikelAdapter
 import com.coolyeah.ecocleanx.databinding.FragmentBerandaBinding
 import com.coolyeah.ecocleanx.model.ArtikelModel
+import com.coolyeah.ecocleanx.model.LaporanModel
 import com.coolyeah.ecocleanx.ui.ArtikelActivity
 import com.coolyeah.ecocleanx.ui.LaporInputActivity
 import com.coolyeah.ecocleanx.ui.NotifikasiActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -49,12 +55,17 @@ class BerandaFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<ArtikelModel>
 
+    //FIREBASE
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBerandaBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        db = Firebase.firestore
 
         //BUTTONS
         binding.btnNotif.setOnClickListener {
@@ -91,6 +102,8 @@ class BerandaFragment : Fragment() {
             intent.putExtra("content", selectedItem.content)
             startActivity(intent)
         }
+
+        getRiwayatLaporanDataFromFirebase()
 
         return  view
     }
@@ -132,6 +145,50 @@ class BerandaFragment : Fragment() {
     }
 
 
+    fun getRiwayatLaporanDataFromFirebase(){
+        var riwayatLaporanData = ArrayList<LaporanModel>()
+
+        //GET USER EMAIL
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email
+
+        val docRef = db.collection("laporans").whereEqualTo("email", userEmail)
+        docRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot != null) {
+                    for (document in querySnapshot.documents) {
+                        riwayatLaporanData.add(LaporanModel.fromMap(document.data!!))
+                    }
+                    Log.d("DATA1", riwayatLaporanData.toString())
+
+                    saveRiwayatLaporanData(riwayatLaporanData)
+                }
+            }
+    }
+
+    private fun saveRiwayatLaporanData(data: ArrayList<LaporanModel>) {
+        val gson = Gson()
+
+        val sharedPreferences: SharedPreferences =
+            requireActivity().getSharedPreferences("localData", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        val json = gson.toJson(data)
+
+        editor.putString("riwayatLaporanData", json)
+        editor.apply()
+    }
+
+    private fun getRiwayatLaporanData(): ArrayList<LaporanModel> {
+        val sharedPreferences: SharedPreferences =
+            requireActivity().getSharedPreferences("localData", Context.MODE_PRIVATE)
+
+        val gson = Gson()
+        val json = sharedPreferences.getString("riwayatLaporanData", "")
+
+        val type = object : TypeToken<ArrayList<LaporanModel>>() {}.type
+
+        return gson.fromJson(json, type) ?: ArrayList()
+    }
 
 
 }

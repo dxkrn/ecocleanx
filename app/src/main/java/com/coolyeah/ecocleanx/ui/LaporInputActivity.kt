@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.location.LocationListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -18,17 +17,13 @@ import android.location.Address
 import android.location.Geocoder
 import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.coolyeah.ecocleanx.R
 import com.coolyeah.ecocleanx.databinding.ActivityLaporInputBinding
-import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -199,20 +194,26 @@ class LaporInputActivity : AppCompatActivity() {
 
         //GET CURRENT DATE
         val currDate = Date()
-        val formatter = SimpleDateFormat("yyyyMMddHHmmss")
-        val formattedDateTime = formatter.format(currDate)
+        val formatterForID = SimpleDateFormat("yyyyMMddHHmmss")
+        val formattedDateTimeForID = formatterForID.format(currDate)
+
+        //LAPORAN DATE
+        val datePattern = "dd MMMM yyyy HH:mm:ss"
+        val sdf = SimpleDateFormat(datePattern, Locale("id", "ID"))
+        val date = sdf.format(currDate)
+
 
         //GET USER EMAIL
         val userEmail = FirebaseAuth.getInstance().currentUser?.email
 
         //GENERATE LAPORAN DOC ID
-        val laporanID = userEmail+formattedDateTime
+        val laporanID = userEmail+formattedDateTimeForID
 
         // Create a storage reference from our app
         val storageRef = storage.reference
 
         // Create a reference to 'laporan/..'
-        val laporanImagesRef = storageRef.child("laporan/${userEmail}-${formattedDateTime}.jpg")
+        val laporanImagesRef = storageRef.child("laporan/${userEmail}-${formattedDateTimeForID}.jpg")
 
         // Get the data from an ImageView as bytes
         val imageView: ImageView = findViewById(R.id.btn_add_photo)
@@ -244,7 +245,8 @@ class LaporInputActivity : AppCompatActivity() {
                     "alamat" to alamat,
                     "latlong" to latLong,
                     "img" to imgUrl,
-                    "date" to currDate
+                    "date" to date,
+                    "status" to "Belum Terverifikasi"
                 )
 
                 //add user data to firestore
